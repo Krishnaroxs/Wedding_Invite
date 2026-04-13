@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jatin & Pahuni | A Cinematic Love Story</title>
-
+    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
-        rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -47,25 +44,17 @@
 
     <style>
         body {
-            background: linear-gradient(to bottom, #fdf1e4 0%, #f9d4d3 40%, #f8b195 80%, #c06c84 100%);
+            /* Deep high-altitude blue fading into romantic sunset */
+            background: linear-gradient(to bottom, #1f3a68 0%, #6881a6 30%, #f9d4d3 65%, #fdf1e4 100%);
             margin: 0;
             overflow-x: hidden;
             color: #333;
         }
 
         /* Hide scrollbar for a cinematic feel */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #fdf1e4;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #d4af37;
-            border-radius: 4px;
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #fdf1e4; }
+        ::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 4px; }
 
         /* Canvas overlays */
         #heroCanvas {
@@ -86,20 +75,6 @@
             height: 100vh;
             z-index: 0;
             pointer-events: none;
-            opacity: 0.6;
-        }
-
-        /* Cinematic Clouds */
-        .cloud-layer {
-            position: fixed;
-            width: 200vw;
-            height: 200vh;
-            top: -50vh;
-            left: -50vw;
-            background: radial-gradient(circle at center, rgba(255, 248, 240, 0.1) 0%, rgba(255, 255, 255, 0) 60%);
-            z-index: 2;
-            pointer-events: none;
-            transform-origin: center;
         }
 
         /* Content Wrapper */
@@ -108,191 +83,11 @@
             z-index: 10;
         }
 
-        /* Ocean Surface & Background Aircraft Carrier */
-        .ocean-surface {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100vw;
-            height: 22vh;
-            background: linear-gradient(180deg, rgba(246, 114, 128, 0.15) 0%, rgba(192, 108, 132, 0.4) 100%);
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            z-index: 0;
-            overflow: hidden;
-            backdrop-filter: blur(2px);
-        }
-
-        .ocean-surface::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 200%;
-            height: 100%;
-            background: repeating-linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05) 20px, transparent 40px);
-            animation: wave 20s linear infinite;
-        }
-
-        @keyframes wave {
-            0% {
-                transform: translateX(0);
-            }
-
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-
-        .carrier-bg {
-            position: fixed;
-            bottom: 22vh;
-            /* Anchored to ocean horizon */
-            left: 50%;
-            transform: translateX(-50%);
-            width: 85vw;
-            max-width: 1000px;
-            height: 16px;
-            background: linear-gradient(to right, #2a313a, #3b4453, #2a313a);
-            border-radius: 4px 4px 0 0;
-            z-index: 1;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.1);
-        }
-
-        .carrier-tower {
-            position: absolute;
-            bottom: 16px;
-            right: 15%;
-            width: 50px;
-            height: 35px;
-            background: linear-gradient(to top, #2a313a, #3b4453);
-            border-radius: 4px 4px 0 0;
-            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
-        }
-
-        .carrier-tower::before {
-            content: '';
-            position: absolute;
-            top: 8px;
-            left: -10px;
-            width: 70px;
-            height: 12px;
-            background: #4a5568;
-            border-radius: 2px;
-            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.2);
-        }
-
-        .carrier-tower::after {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: 20px;
-            width: 2px;
-            height: 10px;
-            background: #718096;
-        }
-
-        .runway-lights {
-            position: absolute;
-            bottom: 0;
-            left: 2%;
-            width: 96%;
-            height: 3px;
-            background: repeating-linear-gradient(90deg, rgba(255, 215, 0, 0.8) 0px, rgba(255, 215, 0, 0.8) 5px, transparent 5px, transparent 30px);
-            opacity: 0.6;
-        }
-
-        /* Tiny background jets taking off & landing */
-        .bg-jet {
-            position: absolute;
-            width: 10px;
-            height: 3px;
-            background: #fff;
-            border-radius: 50%;
-            box-shadow: -6px 0 8px #f67280, 0 0 5px #fff;
-            opacity: 0;
-            z-index: 2;
-        }
-
-        .jet-takeoff-1 {
-            animation: carrierTakeoff 6s infinite cubic-bezier(0.4, 0, 1, 1);
-        }
-
-        .jet-takeoff-2 {
-            animation: carrierTakeoff 6s infinite cubic-bezier(0.4, 0, 1, 1);
-            animation-delay: 3s;
-        }
-
-        .jet-landing-1 {
-            animation: carrierLanding 7s infinite cubic-bezier(0, 0.5, 0.5, 1);
-            animation-delay: 1.5s;
-        }
-
-        .jet-landing-2 {
-            animation: carrierLanding 7s infinite cubic-bezier(0, 0.5, 0.5, 1);
-            animation-delay: 5s;
-        }
-
-        @keyframes carrierTakeoff {
-            0% {
-                transform: translate(0vw, -5px) rotate(0deg);
-                opacity: 0;
-            }
-
-            5% {
-                opacity: 1;
-            }
-
-            25% {
-                transform: translate(25vw, -5px) rotate(0deg);
-                opacity: 1;
-            }
-
-            45% {
-                transform: translate(40vw, -80px) rotate(-15deg) scale(0.8);
-                opacity: 0.9;
-            }
-
-            100% {
-                transform: translate(80vw, -500px) rotate(-30deg) scale(0);
-                opacity: 0;
-            }
-        }
-
-        @keyframes carrierLanding {
-            0% {
-                transform: translate(-60vw, -400px) rotate(15deg) scale(0);
-                opacity: 0;
-            }
-
-            25% {
-                opacity: 0.8;
-            }
-
-            55% {
-                transform: translate(-15vw, -30px) rotate(5deg) scale(0.8);
-                opacity: 1;
-            }
-
-            70% {
-                transform: translate(5vw, -5px) rotate(0deg) scale(1);
-                opacity: 1;
-            }
-
-            90% {
-                transform: translate(25vw, -5px) rotate(0deg) scale(1);
-                opacity: 0;
-            }
-
-            100% {
-                opacity: 0;
-            }
-        }
-
         /* Typography & Glows */
         .text-glow {
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(249, 212, 211, 0.6);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.4);
         }
-
+        
         .gold-gradient-text {
             background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             -webkit-background-clip: text;
@@ -311,7 +106,7 @@
             overflow: hidden;
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
         }
-
+        
         .glass-card:hover {
             transform: translateY(-10px) scale(1.02);
             box-shadow: 0 30px 60px rgba(212, 175, 55, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
@@ -334,49 +129,21 @@
         }
 
         @keyframes scan {
-            0% {
-                transform: translateY(-10px);
-            }
-
-            100% {
-                transform: translateY(500px);
-            }
+            0% { transform: translateY(-10px); }
+            100% { transform: translateY(500px); }
         }
     </style>
 </head>
-
 <body class="antialiased font-sans">
 
     <!-- Terminal Background (Fades out) -->
-    <div id="terminal-bg"
-        class="fixed inset-0 z-[60] bg-[#0a0f0d] transition-opacity duration-[1500ms] flex flex-col items-center justify-center px-6">
+    <div id="terminal-bg" class="fixed inset-0 z-[60] bg-[#0a0f0d] transition-opacity duration-[1500ms] flex flex-col items-center justify-center px-6">
         <div class="max-w-4xl w-full text-left md:text-center space-y-6 relative z-20">
-            <p id="intro-line-1"
-                class="font-mono text-[#4ade80] text-base md:text-2xl tracking-[0.2em] uppercase min-h-[32px] drop-shadow-[0_0_8px_rgba(74,222,128,0.8)]">
-            </p>
-            <p id="intro-line-2"
-                class="font-mono text-[#4ade80] text-sm md:text-xl tracking-widest min-h-[28px] drop-shadow-[0_0_8px_rgba(74,222,128,0.8)]">
-            </p>
+            <p id="intro-line-1" class="font-mono text-[#4ade80] text-base md:text-2xl tracking-[0.2em] uppercase min-h-[32px] drop-shadow-[0_0_8px_rgba(74,222,128,0.8)]"></p>
+            <p id="intro-line-2" class="font-mono text-[#4ade80] text-sm md:text-xl tracking-widest min-h-[28px] drop-shadow-[0_0_8px_rgba(74,222,128,0.8)]"></p>
         </div>
         <!-- CRT overlay effect -->
-        <div
-            class="absolute inset-0 pointer-events-none bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgoJPHJlY3Qgd2lkdGg9IjQiIGhlaWdodD0iMSIgZmlsbD0icmdiYSgwLDAsMCwwLjEpIiAvPgo8L3N2Zz4=')] opacity-50 z-10">
-        </div>
-    </div>
-
-    <!-- Atmospheric Background Layers -->
-    <div class="ocean-surface"></div>
-    <div class="carrier-bg">
-        <div class="carrier-tower"></div>
-        <div class="runway-lights"></div>
-        <div class="bg-jet jet-takeoff-1"></div>
-        <div class="bg-jet jet-takeoff-2"></div>
-        <div class="bg-jet jet-landing-1"></div>
-        <div class="bg-jet jet-landing-2"></div>
-    </div>
-    <div class="cloud-layer" id="cloud1"></div>
-    <div class="cloud-layer" id="cloud2"
-        style="background: radial-gradient(circle at center, rgba(249, 212, 211, 0.15) 0%, rgba(255,255,255,0) 50%); transform: scale(1.5);">
+        <div class="absolute inset-0 pointer-events-none bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgoJPHJlY3Qgd2lkdGg9IjQiIGhlaWdodD0iMSIgZmlsbD0icmdiYSgwLDAsMCwwLjEpIiAvPgo8L3N2Zz4=')] opacity-50 z-10"></div>
     </div>
 
     <!-- Canvases for Animation -->
@@ -385,29 +152,25 @@
 
     <!-- Scrollable Content -->
     <div id="scroll-content" class="w-full flex flex-col items-center">
-
+        
         <!-- Spacer for Hero Animation & Title -->
         <div class="h-screen w-full flex flex-col items-center justify-center relative">
-            <h1 id="hero-names"
-                class="text-center drop-shadow-2xl opacity-0 transform scale-95 transition-all duration-[2000ms] z-20 mt-[-10vh]">
+            <h1 id="hero-names" class="text-center drop-shadow-2xl opacity-0 transform scale-95 transition-all duration-[2000ms] z-20 mt-[-10vh]">
                 <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
-                    <span class="block font-cinematic text-5xl md:text-7xl tracking-[0.2em] text-[#3b2a25]">JATIN</span>
-                    <span class="block text-[#f67280] text-4xl md:text-6xl text-glow animate-pulse">&hearts;</span>
-                    <span
-                        class="block font-cinematic text-5xl md:text-7xl tracking-[0.2em] text-[#3b2a25]">PAHUNI</span>
+                    <span class="block font-cinematic text-5xl md:text-7xl tracking-[0.2em] text-white text-glow drop-shadow-[0_0_15px_rgba(255,255,255,0.8)]">JATIN</span>
+                    <span class="block text-[#ff7b93] text-4xl md:text-6xl text-glow animate-pulse drop-shadow-[0_0_15px_rgba(255,123,147,0.8)]">&hearts;</span>
+                    <span class="block font-cinematic text-5xl md:text-7xl tracking-[0.2em] text-white text-glow drop-shadow-[0_0_15px_rgba(255,255,255,0.8)]">PAHUNI</span>
                 </div>
             </h1>
         </div>
 
         <!-- Section 1: Welcome Message -->
         <section class="min-h-screen w-full flex items-center justify-center px-6 py-20 relative">
-            <div
-                class="welcome-text text-center max-w-4xl mx-auto backdrop-blur-sm bg-white/5 p-10 rounded-3xl border border-white/20 shadow-2xl">
-                <p class="font-cinematic text-lg md:text-2xl text-gold-gradient-text tracking-[0.15em] uppercase mb-6">
-                    The Journey Begins</p>
-                <h2 class="font-serif text-3xl md:text-5xl lg:text-6xl leading-relaxed text-[#5a3e36]">
+            <div class="welcome-text text-center max-w-4xl mx-auto backdrop-blur-sm bg-white/5 p-10 rounded-3xl border border-white/20 shadow-2xl">
+                <p class="font-cinematic text-lg md:text-2xl text-gold-gradient-text tracking-[0.15em] uppercase mb-6">The Journey Begins</p>
+                <h2 class="font-serif text-3xl md:text-5xl lg:text-6xl leading-relaxed text-white drop-shadow-lg">
                     With a heart full of happiness,<br>
-                    <span class="italic font-light text-[#8a5a44]">you’re invited to the wedding of</span><br>
+                    <span class="italic font-light text-white/80">you’re invited to the wedding of</span><br>
                     <span class="font-semibold mt-4 block text-glow text-white">Jatin & Pahuni</span>
                 </h2>
             </div>
@@ -415,12 +178,10 @@
 
         <!-- Section 2: Top Gun Profile Cards -->
         <section class="min-h-screen w-full flex flex-col items-center justify-center px-6 py-20 relative z-30">
-            <h3
-                class="font-cinematic text-2xl md:text-3xl text-[#f67280] tracking-[0.2em] mb-16 opacity-90 uppercase text-center w-full text-glow">
-                Flight Crew Profiles</h3>
-
-            <div class="flex flex-col md:flex-row gap-10 md:gap-16 w-full max-w-6xl justify-center items-stretch">
-
+            <h3 class="font-cinematic text-2xl md:text-3xl text-white tracking-[0.2em] mb-16 opacity-95 uppercase text-center w-full text-glow drop-shadow-xl">Flight Crew Profiles</h3>
+            
+            <div class="flex flex-col md:flex-row gap-10 md:gap-16 w-full max-w-6xl justify-center items-center">
+                
                 <!-- Card 1: Jatin -->
                 <div class="glass-card w-full max-w-sm rounded-2xl p-1 profile-card">
                     <div class="scan-line"></div>
@@ -428,20 +189,16 @@
                         <!-- Image Area -->
                         <div class="h-64 relative overflow-hidden group">
                             <div class="absolute inset-0 bg-gradient-to-t from-[#1a1a1a]/80 to-transparent z-10"></div>
-                            <!-- Updated groom portrait with adjustable inline styles for centering -->
-                            <img src="C:/Users/ktela/Downloads/groom.jpeg" alt="Jatin"
-                                class="w-full h-full object-cover filter contrast-125 brightness-90 group-hover:scale-110 transition-transform duration-700"
-                                style="object-position: center 20%;">
+                            <!-- Elegant portrait for the groom -->
+                            <img src="groom.jpg" alt="Jatin" class="w-full h-full object-cover object-top filter contrast-125 brightness-90 group-hover:scale-110 transition-transform duration-700">
                             <div class="absolute bottom-4 left-4 z-20">
-                                <p class="text-gold font-cinematic text-xs tracking-widest uppercase opacity-80">
-                                    Callsign</p>
+                                <p class="text-gold font-cinematic text-xs tracking-widest uppercase opacity-80">Callsign</p>
                                 <h4 class="text-white font-serif text-2xl tracking-wide">"The Groom"</h4>
                             </div>
                         </div>
                         <!-- Details Area -->
                         <div class="p-6 text-white/90 font-sans space-y-4 relative">
-                            <div
-                                class="absolute top-0 right-6 w-12 h-12 bg-white/5 rounded-full flex items-center justify-center border border-gold/30 -mt-6 backdrop-blur-md z-20">
+                            <div class="absolute top-0 right-6 w-12 h-12 bg-white/5 rounded-full flex items-center justify-center border border-gold/30 -mt-6 backdrop-blur-md z-20">
                                 <span class="font-cinematic text-gold">JW</span>
                             </div>
                             <div>
@@ -473,20 +230,16 @@
                         <!-- Image Area -->
                         <div class="h-64 relative overflow-hidden group">
                             <div class="absolute inset-0 bg-gradient-to-t from-[#1a1a1a]/80 to-transparent z-10"></div>
-                            <!-- Updated bride portrait with adjustable inline styles for centering -->
-                            <img src="C:/Users/ktela/Downloads/brideimg1.jpeg" alt="Pahuni"
-                                class="w-full h-full object-cover filter contrast-125 brightness-90 group-hover:scale-110 transition-transform duration-700"
-                                style="object-position: center 25%;">
+                            <!-- Elegant portrait for the bride -->
+                            <img src="brideimg1.jpeg" alt="Pahuni" class="w-full h-full object-cover object-top filter contrast-125 brightness-90 group-hover:scale-110 transition-transform duration-700">
                             <div class="absolute bottom-4 left-4 z-20">
-                                <p class="text-gold font-cinematic text-xs tracking-widest uppercase opacity-80">
-                                    Callsign</p>
+                                <p class="text-gold font-cinematic text-xs tracking-widest uppercase opacity-80">Callsign</p>
                                 <h4 class="text-white font-serif text-2xl tracking-wide">"The Bride"</h4>
                             </div>
                         </div>
                         <!-- Details Area -->
                         <div class="p-6 text-white/90 font-sans space-y-4 relative">
-                            <div
-                                class="absolute top-0 right-6 w-12 h-12 bg-white/5 rounded-full flex items-center justify-center border border-gold/30 -mt-6 backdrop-blur-md z-20">
+                            <div class="absolute top-0 right-6 w-12 h-12 bg-white/5 rounded-full flex items-center justify-center border border-gold/30 -mt-6 backdrop-blur-md z-20">
                                 <span class="font-cinematic text-gold">PT</span>
                             </div>
                             <div>
@@ -517,74 +270,50 @@
         <!-- Section 3: Cinematic Name Reinforcement -->
         <section class="min-h-[70vh] w-full flex items-center justify-center px-6 relative overflow-hidden z-20">
             <div id="cinematic-names" class="text-center relative">
-                <div
-                    class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[120%] h-[200%] bg-white/5 blur-3xl rounded-full">
-                </div>
-                <h2
-                    class="font-serif text-6xl md:text-9xl text-white opacity-90 tracking-tighter flex flex-col items-center">
-                    <span class="block mb-2 drop-shadow-2xl">Jatin</span>
-                    <span class="block text-4xl md:text-6xl text-[#f67280] my-4 animate-pulse">&hearts;</span>
-                    <span class="block mt-2 drop-shadow-2xl">Pahuni</span>
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[120%] h-[200%] bg-white/5 blur-3xl rounded-full"></div>
+                <h2 class="font-serif text-6xl md:text-9xl text-[#1f3a68] opacity-90 tracking-tighter flex flex-col items-center drop-shadow-xl">
+                    <span class="block mb-2">Jatin</span>
+                    <span class="block text-4xl md:text-6xl text-[#c06c84] my-4 animate-pulse">&hearts;</span>
+                    <span class="block mt-2">Pahuni</span>
                 </h2>
             </div>
         </section>
 
         <!-- Section 4: Wedding Details -->
         <section class="min-h-screen w-full flex items-center justify-center px-6 py-20 relative z-30">
-            <div
-                class="details-container max-w-3xl w-full bg-white/20 backdrop-blur-xl border border-white/40 p-10 md:p-16 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] text-center">
-
-                <svg class="w-12 h-12 mx-auto mb-6 text-gold opacity-80" fill="none" stroke="currentColor"
-                    viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                    </path>
-                </svg>
-
-                <h3 class="font-cinematic text-3xl md:text-4xl text-[#5a3e36] tracking-widest mb-12">Flight Details</h3>
-
+            <div class="details-container max-w-3xl w-full bg-white/20 backdrop-blur-xl border border-white/40 p-10 md:p-16 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] text-center">
+                
+                <svg class="w-12 h-12 mx-auto mb-6 text-[#1f3a68] opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                
+                <h3 class="font-cinematic text-3xl md:text-4xl text-[#1f3a68] font-bold tracking-widest mb-12">Flight Details</h3>
+                
                 <div class="space-y-12">
                     <!-- Date -->
                     <div class="detail-item">
-                        <p class="font-sans text-sm uppercase tracking-[0.3em] text-[#8a5a44] font-semibold mb-3">Target
-                            Date</p>
-                        <p class="font-serif text-3xl md:text-5xl text-white text-glow">22nd June 2026</p>
+                        <p class="font-sans text-sm uppercase tracking-[0.3em] text-[#c06c84] font-bold mb-3">Target Date</p>
+                        <p class="font-serif text-3xl md:text-5xl text-[#1f3a68] font-semibold">22nd June 2026</p>
                     </div>
 
-                    <div
-                        class="w-1/4 h-px bg-gradient-to-r from-transparent via-gold to-transparent mx-auto opacity-50">
-                    </div>
+                    <div class="w-1/4 h-px bg-gradient-to-r from-transparent via-[#1f3a68] to-transparent mx-auto opacity-30"></div>
 
                     <!-- Venue -->
                     <div class="detail-item">
-                        <p class="font-sans text-sm uppercase tracking-[0.3em] text-[#8a5a44] font-semibold mb-3">
-                            Landing Zone</p>
-                        <p class="font-serif text-2xl md:text-4xl text-white text-glow mb-2">Tivoli Banquet Hall</p>
-                        <p class="font-sans text-lg text-white/80 tracking-wide">Noida, Uttar Pradesh</p>
+                        <p class="font-sans text-sm uppercase tracking-[0.3em] text-[#c06c84] font-bold mb-3">Landing Zone</p>
+                        <p class="font-serif text-2xl md:text-4xl text-[#1f3a68] font-semibold mb-2">Tivoli Banquet Hall</p>
+                        <p class="font-sans text-lg text-[#1f3a68]/80 tracking-wide font-medium">Noida, Uttar Pradesh</p>
                     </div>
 
                     <!-- Coordinates -->
-                    <div
-                        class="detail-item bg-black/10 inline-block px-8 py-4 rounded-full border border-white/20 mt-4">
+                    <div class="detail-item bg-[#1f3a68]/5 inline-block px-8 py-4 rounded-full border border-[#1f3a68]/20 mt-4">
                         <div class="flex items-center justify-center gap-3">
-                            <svg class="w-5 h-5 text-gold animate-pulse" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
-                                </path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            </svg>
-                            <p class="font-mono text-lg md:text-xl text-white tracking-widest font-light">28.5355° N,
-                                77.3910° E</p>
+                            <svg class="w-5 h-5 text-[#c06c84] animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            <p class="font-mono text-lg md:text-xl text-[#1f3a68] tracking-widest font-bold">28.5355° N, 77.3910° E</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-16 border-t border-white/20 pt-8">
-                    <p
-                        class="font-cinematic text-lg md:text-xl tracking-[0.4em] text-[#3b2a25] font-semibold uppercase opacity-90">
-                        Awaiting Your Arrival</p>
+                <div class="mt-16 border-t border-[#1f3a68]/20 pt-8">
+                    <p class="font-cinematic text-lg md:text-xl tracking-[0.4em] text-[#c06c84] font-bold uppercase opacity-90">Awaiting Your Arrival</p>
                 </div>
             </div>
         </section>
@@ -593,10 +322,10 @@
 
     <!-- Animation Scripts -->
     <script>
-        // --- Canvas Animation: Jets & Trails ---
+        // --- Canvas Animation: Jets & Clouds ---
         const canvas = document.getElementById('heroCanvas');
         const ctx = canvas.getContext('2d');
-
+        
         const bgCanvas = document.getElementById('particleCanvas');
         const bgCtx = bgCanvas.getContext('2d');
 
@@ -609,153 +338,258 @@
         window.addEventListener('resize', resize);
         resize();
 
-        // Atmospheric Particles (Background)
-        let bgParticles = [];
-        for (let i = 0; i < 100; i++) {
-            bgParticles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                size: Math.random() * 2,
-                speedY: -Math.random() * 0.5 - 0.1,
-                speedX: (Math.random() - 0.5) * 0.5,
-                opacity: Math.random() * 0.5
+        // High-performance volumetric cloud renderer
+        const cloudImg = document.createElement('canvas');
+        cloudImg.width = 400;
+        cloudImg.height = 400;
+        const cCtx = cloudImg.getContext('2d');
+        const cloudGrad = cCtx.createRadialGradient(200, 200, 0, 200, 200, 200);
+        cloudGrad.addColorStop(0, 'rgba(255, 255, 255, 0.4)');
+        cloudGrad.addColorStop(0.3, 'rgba(255, 255, 255, 0.15)');
+        cloudGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+        cCtx.fillStyle = cloudGrad;
+        cCtx.beginPath();
+        cCtx.arc(200, 200, 200, 0, Math.PI * 2);
+        cCtx.fill();
+
+        // Atmospheric Clouds Array
+        let clouds = [];
+        for(let i=0; i<35; i++) {
+            clouds.push({
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight * 2,
+                size: 200 + Math.random() * 500,
+                speedY: -0.2 - Math.random() * 0.4,
+                opacity: 0.1 + Math.random() * 0.5
             });
         }
 
-        function drawBgParticles() {
+        function drawClouds() {
             bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
-            bgParticles.forEach(p => {
-                p.y += p.speedY;
-                p.x += p.speedX;
-                if (p.y < 0) p.y = bgCanvas.height;
-                if (p.x < 0) p.x = bgCanvas.width;
-                if (p.x > bgCanvas.width) p.x = 0;
+            clouds.forEach(c => {
+                c.y += c.speedY;
+                if(c.y + c.size < 0) {
+                    c.y = bgCanvas.height + c.size;
+                    c.x = Math.random() * bgCanvas.width;
+                }
 
-                bgCtx.beginPath();
-                bgCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                bgCtx.fillStyle = `rgba(255, 255, 255, ${p.opacity})`;
-                bgCtx.fill();
+                bgCtx.globalAlpha = c.opacity;
+                // Draw pre-rendered cloud image
+                bgCtx.drawImage(cloudImg, c.x - c.size/2, c.y - c.size/2, c.size, c.size);
             });
+            bgCtx.globalAlpha = 1.0;
         }
 
-        // Hero Jets Animation
-        let jets = [];
-        let trails = [];
-        let frame = 0;
-        let animationPhase = 0; // 0: Burst, 1: Fade to text, 2: Done
-
-        // 8 Jets in a beautiful arc
-        // Angles from -160 to -20 degrees (0 is right, -90 is up)
-        const anglesDeg = [-160, -140, -110, -90, -90, -70, -40, -20]; // Two at -90 for lead/wingman
-        const colors = ['#F9E5C9', '#F9D4D3', '#FFF8F0', '#F9E5C9', '#FFF8F0', '#F9D4D3', '#F9E5C9', '#FFF8F0'];
-
-        function initJets() {
-            const centerX = canvas.width / 2;
-            const centerY = canvas.height / 2 - 50; // Start exactly behind the names
-
-            anglesDeg.forEach((deg, index) => {
-                // Offset wingman
-                let startY = centerY;
-                let startX = centerX;
-                if (index === 4) startY += 40; // Wingman slightly behind
-
-                jets.push({
-                    x: startX,
-                    y: startY,
-                    angle: deg * (Math.PI / 180),
-                    speed: 0, // Starts slow
-                    targetSpeed: 6 + Math.random() * 2,
-                    color: colors[index],
-                    active: true,
-                    trail: []
-                });
-            });
-        }
-
-        function drawJetShape(ctx, x, y, angle) {
+        // Hero Jet & Formation Animations
+        let mainJet = null;
+        let bgJets = [];
+        
+        function drawF14(ctx, x, y, scale, alpha=1, isMain=false) {
             ctx.save();
             ctx.translate(x, y);
-            ctx.rotate(angle + Math.PI / 2); // Adjust so 0 points UP for drawing
+            ctx.scale(scale, scale);
+            ctx.globalAlpha = alpha;
 
-            // Elegant sleek delta shape
-            ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
-            ctx.shadowColor = "rgba(255, 255, 255, 0.8)";
-            ctx.shadowBlur = 10;
+            // Simple drop shadow for depth
+            ctx.shadowColor = isMain ? "rgba(0, 0, 0, 0.5)" : "rgba(0, 0, 0, 0.2)";
+            ctx.shadowBlur = isMain ? 40 : 15;
+            ctx.shadowOffsetY = isMain ? 25 : 8;
 
+            // Realistic Fuselage Colors
+            const bodyColor = isMain ? "#8c929a" : "#aab0b8";
+            const edgeColor = isMain ? "#b6bcc4" : "#cdd2d8";
+            const darkMetal = "#3a3e42";
+
+            const fuseGrad = ctx.createLinearGradient(-15, 0, 15, 0);
+            fuseGrad.addColorStop(0, edgeColor);
+            fuseGrad.addColorStop(0.5, bodyColor);
+            fuseGrad.addColorStop(1, edgeColor);
+
+            ctx.fillStyle = fuseGrad;
+
+            // Detailed F-14 Tomcat Silhouette (Top-Down)
             ctx.beginPath();
-            ctx.moveTo(0, -12); // Nose
-            ctx.lineTo(8, 8);   // Right wing
-            ctx.lineTo(2, 6);   // Right inner
-            ctx.lineTo(0, 10);  // Tail
-            ctx.lineTo(-2, 6);  // Left inner
-            ctx.lineTo(-8, 8);  // Left wing
+            ctx.moveTo(0, -45); // Nose tip
+            ctx.quadraticCurveTo(4, -20, 8, -5); // Right nose/cockpit side
+            ctx.lineTo(40, 15); // Wing tip right (swept back)
+            ctx.lineTo(12, 20); // Wing trailing edge right
+            ctx.lineTo(10, 35); // Tail right
+            ctx.lineTo(25, 45); // Horizontal stab right tip
+            ctx.lineTo(8, 45);  // Horizontal stab right base
+            ctx.lineTo(8, 55);  // Engine right nozzle
+            ctx.lineTo(-8, 55); // Engine left nozzle
+            ctx.lineTo(-8, 45); // Horizontal stab left base
+            ctx.lineTo(-25, 45);// Horizontal stab left tip
+            ctx.lineTo(-10, 35);// Tail left
+            ctx.lineTo(-12, 20);// Wing trailing edge left
+            ctx.lineTo(-40, 15);// Wing tip left
+            ctx.lineTo(-8, -5); // Left nose/cockpit side
+            ctx.quadraticCurveTo(-4, -20, 0, -45); // Nose tip
             ctx.closePath();
             ctx.fill();
 
-            // Engine glow
+            // Cockpit Canopy (Glowing Cyan/Blue)
+            ctx.shadowBlur = isMain ? 10 : 0;
+            ctx.shadowColor = "#7be4ff";
+            ctx.shadowOffsetY = 0;
+            const cockpitGrad = ctx.createLinearGradient(0, -30, 0, -10);
+            cockpitGrad.addColorStop(0, "#1a2530");
+            cockpitGrad.addColorStop(1, "#7be4ff");
+            ctx.fillStyle = cockpitGrad;
             ctx.beginPath();
-            ctx.arc(0, 12, 2, 0, Math.PI * 2);
-            ctx.fillStyle = "#f67280";
+            ctx.ellipse(0, -18, 3, 10, 0, 0, Math.PI * 2);
             ctx.fill();
+
+            // Twin Tail Fins (Vertical Stabilizers)
+            ctx.shadowBlur = 0;
+            ctx.fillStyle = darkMetal;
+            ctx.beginPath();
+            ctx.moveTo(6, 25);
+            ctx.lineTo(10, 42);
+            ctx.lineTo(6, 42);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.moveTo(-6, 25);
+            ctx.lineTo(-10, 42);
+            ctx.lineTo(-6, 42);
+            ctx.closePath();
+            ctx.fill();
+
+            // Twin Engine Afterburner Glows
+            if (isMain || alpha > 0.5) {
+                ctx.shadowBlur = isMain ? 25 : 10;
+                ctx.shadowColor = "#ff7b00";
+                ctx.fillStyle = "#ffdd88";
+                
+                // Flame flickering effect
+                let flicker = isMain ? Math.random() * 20 + 10 : 15;
+                
+                // Right engine flame
+                ctx.beginPath();
+                ctx.moveTo(3, 55);
+                ctx.lineTo(9, 55);
+                ctx.lineTo(6, 55 + flicker);
+                ctx.closePath();
+                ctx.fill();
+                
+                // Left engine flame
+                ctx.beginPath();
+                ctx.moveTo(-9, 55);
+                ctx.lineTo(-3, 55);
+                ctx.lineTo(-6, 55 + flicker);
+                ctx.closePath();
+                ctx.fill();
+            }
 
             ctx.restore();
         }
 
+        function spawnFormation() {
+            const startX = Math.random() * (canvas.width * 0.8) + (canvas.width * 0.1);
+            const startY = canvas.height + 150;
+            const speed = 2 + Math.random() * 3;
+            const scale = 0.15 + Math.random() * 0.2;
+            const opacity = 0.3 + Math.random() * 0.4;
+            
+            // Randomly choose formation type
+            const formationType = Math.floor(Math.random() * 3);
+            let offsets = [];
+
+            if (formationType === 0) {
+                // V-formation (5 jets)
+                offsets = [
+                    {x: 0, y: 0},
+                    {x: -60, y: 60}, {x: 60, y: 60},
+                    {x: -120, y: 120}, {x: 120, y: 120}
+                ];
+            } else if (formationType === 1) {
+                // Echelon formation (4 jets diagonal)
+                offsets = [
+                    {x: 0, y: 0},
+                    {x: 60, y: 60}, {x: 120, y: 120}, {x: 180, y: 180}
+                ];
+            } else {
+                // Diamond formation (4 jets)
+                offsets = [
+                    {x: 0, y: 0},
+                    {x: -50, y: 50}, {x: 50, y: 50},
+                    {x: 0, y: 100}
+                ];
+            }
+
+            offsets.forEach(off => {
+                bgJets.push({
+                    x: startX + off.x * scale,
+                    y: startY + off.y * scale,
+                    speed: speed,
+                    scale: scale,
+                    opacity: opacity
+                });
+            });
+        }
+
+        function initJets() {
+            // Main Jet starts much larger and further down to simulate being closer to the camera
+            mainJet = {
+                x: canvas.width / 2,
+                y: canvas.height + 400,
+                speed: 15,
+                scale: 2.5,
+                opacity: 1
+            };
+            
+            // Rapidly spawn background formations to fill the sky
+            spawnFormation();
+            setTimeout(spawnFormation, 800);
+            setTimeout(spawnFormation, 1600);
+            setTimeout(spawnFormation, 2400);
+
+            // Continuously spawn jets every 1.5 seconds to keep the sky alive
+            setInterval(() => {
+                if(Math.random() > 0.2) spawnFormation();
+            }, 1500);
+        }
+
         function animateHero() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            drawBgParticles();
+            drawClouds(); // Draw smooth volumetric clouds
 
-            frame++;
+            // Handle background formations flowing upwards
+            for (let i = bgJets.length - 1; i >= 0; i--) {
+                let jet = bgJets[i];
+                jet.y -= jet.speed;
+                
+                // Subtle sway for realism
+                jet.x += Math.sin(jet.y * 0.005) * 0.3;
 
-            if (frame < 250) {
-                jets.forEach(jet => {
-                    if (!jet.active) return;
+                drawF14(ctx, jet.x, jet.y, jet.scale, jet.opacity, false);
+                
+                if (jet.y < -200) {
+                    bgJets.splice(i, 1);
+                }
+            }
 
-                    // Smooth acceleration
-                    jet.speed += (jet.targetSpeed - jet.speed) * 0.02;
+            // Handle main heroic F-14 flying UP to the top of the screen
+            if (mainJet) {
+                mainJet.y -= mainJet.speed;
+                
+                // Progress from 0 (bottom) to 1+ (top of screen)
+                let progress = Math.max(0, 1 - (mainJet.y / canvas.height));
+                
+                // Scale massively so it looks like it's flying extremely close to the screen (2.5 -> ~9.0)
+                mainJet.scale = 2.5 + (progress * 6.5); 
+                
+                // Accelerate steadily to fly off the top
+                mainJet.speed += 0.5;
 
-                    // Move
-                    jet.x += Math.cos(jet.angle) * jet.speed;
-                    jet.y += Math.sin(jet.angle) * jet.speed;
+                drawF14(ctx, mainJet.x, mainJet.y, mainJet.scale, 1, true);
 
-                    // Add to trail
-                    jet.trail.push({ x: jet.x, y: jet.y, life: 1.0 });
-
-                    // Draw Trail
-                    ctx.beginPath();
-                    ctx.moveTo(jet.trail[0].x, jet.trail[0].y);
-                    for (let i = 1; i < jet.trail.length; i++) {
-                        ctx.lineTo(jet.trail[i].x, jet.trail[i].y);
-                    }
-
-                    // Trail morphs over time
-                    let trailWidth = frame < 150 ? 3 : 3 + (frame - 150) * 0.2;
-                    let opacity = frame < 150 ? 0.8 : Math.max(0, 0.8 - (frame - 150) * 0.01);
-
-                    ctx.strokeStyle = jet.color;
-                    ctx.lineWidth = trailWidth;
-                    ctx.lineCap = "round";
-                    ctx.lineJoin = "round";
-                    ctx.globalAlpha = opacity;
-                    ctx.shadowColor = jet.color;
-                    ctx.shadowBlur = 15;
-                    ctx.stroke();
-                    ctx.globalAlpha = 1.0;
-                    ctx.shadowBlur = 0;
-
-                    // Draw Jet
-                    if (opacity > 0.1) {
-                        drawJetShape(ctx, jet.x, jet.y, jet.angle);
-                    }
-
-                    // Remove off-screen jets
-                    if (jet.x < -100 || jet.x > canvas.width + 100 || jet.y < -100 || jet.y > canvas.height + 100) {
-                        // Keep trail rendering even if jet is gone, logic handled by fading opacity above
-                    }
-                });
-            } else {
-                // Animation settled, just draw bg particles
-                // Optimization: stop heavy canvas loop, just do subtle particles
+                // Stop drawing it when it has flown completely off the top of the screen (needs larger offset due to massive scale)
+                if (mainJet.y < -800) {
+                    mainJet = null; 
+                }
             }
 
             requestAnimationFrame(animateHero);
@@ -764,8 +598,8 @@
         // --- Sequence Controller: Intro -> Main Animation ---
         window.addEventListener('load', () => {
             const line1 = "> This mission, if you choose to accept it...";
-            const line2 = "> Ooh too late... she said Yes!!!.";
-
+            const line2 = "> Ooh too late... she said yes.";
+            
             function typeWriter(elementId, text, speed, callback) {
                 let i = 0;
                 const el = document.getElementById(elementId);
@@ -776,7 +610,7 @@
                         // Randomize typing speed slightly for realism
                         setTimeout(type, speed + (Math.random() * 30));
                     } else {
-                        if (callback) setTimeout(callback, 800);
+                        if(callback) setTimeout(callback, 800);
                     }
                 }
                 type();
@@ -787,28 +621,28 @@
                 typeWriter('intro-line-1', line1, 40, () => {
                     setTimeout(() => {
                         typeWriter('intro-line-2', line2, 50, () => {
-
+                            
                             // Cue Transition
                             setTimeout(() => {
                                 // 1. Fade out terminal background
                                 const terminalBg = document.getElementById('terminal-bg');
                                 terminalBg.style.opacity = '0';
-
+                                
                                 // 2. Bring in Stylized Font & Jets Together!
                                 setTimeout(() => {
                                     const heroNames = document.getElementById('hero-names');
                                     heroNames.classList.remove('opacity-0', 'scale-95');
                                     heroNames.classList.add('opacity-100', 'scale-100');
-
+                                    
                                     // Start Jet Choreography right as names pop up
                                     initJets();
                                     animateHero();
 
                                     // Hide terminal bg completely
                                     setTimeout(() => { terminalBg.style.display = 'none'; }, 1000);
-
+                                    
                                 }, 1000); // Delay so it overlaps slightly with terminal fade
-
+                                
                             }, 800); // Pause after "she said yes"
 
                         });
@@ -819,31 +653,6 @@
 
         // --- GSAP Scroll Animations ---
         gsap.registerPlugin(ScrollTrigger);
-
-        // 1. Cloud Parallax
-        gsap.to("#cloud1", {
-            scrollTrigger: {
-                trigger: "body",
-                start: "top top",
-                end: "bottom bottom",
-                scrub: 1
-            },
-            scale: 2.5,
-            opacity: 0,
-            y: -200
-        });
-
-        gsap.to("#cloud2", {
-            scrollTrigger: {
-                trigger: "body",
-                start: "top top",
-                end: "bottom bottom",
-                scrub: 1.5
-            },
-            scale: 3,
-            opacity: 0,
-            x: 100
-        });
 
         // 3. Welcome Text Reveal
         gsap.from(".welcome-text", {
@@ -902,7 +711,7 @@
             duration: 1.2,
             ease: "power3.out"
         });
-
+        
         gsap.from(".detail-item", {
             scrollTrigger: {
                 trigger: ".details-container",
@@ -918,5 +727,4 @@
 
     </script>
 </body>
-
 </html>
