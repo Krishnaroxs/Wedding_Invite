@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jatin & Pahuni | A Cinematic Love Story</title>
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -52,9 +55,18 @@
         }
 
         /* Hide scrollbar for a cinematic feel */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #fdf1e4; }
-        ::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 4px; }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #fdf1e4;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 4px;
+        }
 
         /* Canvas overlays */
         #heroCanvas {
@@ -87,7 +99,7 @@
         .text-glow {
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.4);
         }
-        
+
         .gold-gradient-text {
             background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             -webkit-background-clip: text;
@@ -106,7 +118,7 @@
             overflow: hidden;
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
         }
-        
+
         .glass-card:hover {
             transform: translateY(-10px) scale(1.02);
             box-shadow: 0 30px 60px rgba(212, 175, 55, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
@@ -129,21 +141,58 @@
         }
 
         @keyframes scan {
-            0% { transform: translateY(-10px); }
-            100% { transform: translateY(500px); }
+            0% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(500px);
+            }
         }
     </style>
 </head>
+
 <body class="antialiased font-sans">
 
+    <!-- Hidden Audio Player -->
+    <audio id="bg-audio" src="Images/bgaudiotop.mp3" loop autoplay></audio>
+
+    <!-- Music Toggle Button -->
+    <button id="music-toggle" onclick="toggleMusic()"
+        class="fixed top-6 right-6 z-[100] w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-gold/30 flex items-center justify-center transition-all duration-300 hover:scale-110 text-gold shadow-[0_4px_15px_rgba(212,175,55,0.2)]"
+        aria-label="Toggle Music">
+        <!-- ON Icon -->
+        <svg id="music-on-icon" class="w-6 h-6 animate-pulse hidden" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+        </svg>
+        <!-- OFF Icon -->
+        <svg id="music-off-icon" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z" />
+            <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2" />
+        </svg>
+    </button>
+
     <!-- Terminal Background (Fades out) -->
-    <div id="terminal-bg" class="fixed inset-0 z-[60] bg-[#0a0f0d] transition-opacity duration-[1500ms] flex flex-col items-center justify-center px-6">
+    <div id="terminal-bg"
+        class="fixed inset-0 z-[60] bg-[#0a0f0d] transition-opacity duration-[1500ms] flex flex-col items-center justify-center px-6">
+
+        <button id="start-mission-btn"
+            class="mb-12 px-8 py-3 border border-[#4ade80] text-[#4ade80] font-mono text-xl hover:bg-[#4ade80]/20 hover:shadow-[0_0_15px_rgba(74,222,128,0.5)] transition-all z-30 tracking-widest uppercase cursor-pointer shadow-[0_0_10px_rgba(74,222,128,0.2)]">
+            [Click to Initialize]
+        </button>
+
         <div class="max-w-4xl w-full text-left md:text-center space-y-6 relative z-20">
-            <p id="intro-line-1" class="font-mono text-[#4ade80] text-base md:text-2xl tracking-[0.2em] uppercase min-h-[32px] drop-shadow-[0_0_8px_rgba(74,222,128,0.8)]"></p>
-            <p id="intro-line-2" class="font-mono text-[#4ade80] text-sm md:text-xl tracking-widest min-h-[28px] drop-shadow-[0_0_8px_rgba(74,222,128,0.8)]"></p>
+            <p id="intro-line-1"
+                class="font-mono text-[#4ade80] text-base md:text-2xl tracking-[0.2em] uppercase min-h-[32px] drop-shadow-[0_0_8px_rgba(74,222,128,0.8)]">
+            </p>
+            <p id="intro-line-2"
+                class="font-mono text-[#4ade80] text-sm md:text-xl tracking-widest min-h-[28px] drop-shadow-[0_0_8px_rgba(74,222,128,0.8)]">
+            </p>
         </div>
         <!-- CRT overlay effect -->
-        <div class="absolute inset-0 pointer-events-none bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgoJPHJlY3Qgd2lkdGg9IjQiIGhlaWdodD0iMSIgZmlsbD0icmdiYSgwLDAsMCwwLjEpIiAvPgo8L3N2Zz4=')] opacity-50 z-10"></div>
+        <div
+            class="absolute inset-0 pointer-events-none bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgoJPHJlY3Qgd2lkdGg9IjQiIGhlaWdodD0iMSIgZmlsbD0icmdiYSgwLDAsMCwwLjEpIiAvPgo8L3N2Zz4=')] opacity-50 z-10">
+        </div>
     </div>
 
     <!-- Canvases for Animation -->
@@ -152,22 +201,28 @@
 
     <!-- Scrollable Content -->
     <div id="scroll-content" class="w-full flex flex-col items-center">
-        
+
         <!-- Spacer for Hero Animation & Title -->
         <div class="h-screen w-full flex flex-col items-center justify-center relative">
-            <h1 id="hero-names" class="text-center drop-shadow-2xl opacity-0 transform scale-95 transition-all duration-[2000ms] z-20 mt-[-10vh]">
+            <h1 id="hero-names"
+                class="text-center drop-shadow-2xl opacity-0 transform scale-95 transition-all duration-[2000ms] z-20 mt-[-10vh]">
                 <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
-                    <span class="block font-cinematic text-5xl md:text-7xl tracking-[0.2em] text-white text-glow drop-shadow-[0_0_15px_rgba(255,255,255,0.8)]">JATIN</span>
-                    <span class="block text-[#ff7b93] text-4xl md:text-6xl text-glow animate-pulse drop-shadow-[0_0_15px_rgba(255,123,147,0.8)]">&hearts;</span>
-                    <span class="block font-cinematic text-5xl md:text-7xl tracking-[0.2em] text-white text-glow drop-shadow-[0_0_15px_rgba(255,255,255,0.8)]">PAHUNI</span>
+                    <span
+                        class="block font-cinematic text-5xl md:text-7xl tracking-[0.2em] text-white text-glow drop-shadow-[0_0_15px_rgba(255,255,255,0.8)]">JATIN</span>
+                    <span
+                        class="block text-[#ff7b93] text-4xl md:text-6xl text-glow animate-pulse drop-shadow-[0_0_15px_rgba(255,123,147,0.8)]">&hearts;</span>
+                    <span
+                        class="block font-cinematic text-5xl md:text-7xl tracking-[0.2em] text-white text-glow drop-shadow-[0_0_15px_rgba(255,255,255,0.8)]">PAHUNI</span>
                 </div>
             </h1>
         </div>
 
         <!-- Section 1: Welcome Message -->
         <section class="min-h-screen w-full flex items-center justify-center px-6 py-20 relative">
-            <div class="welcome-text text-center max-w-4xl mx-auto backdrop-blur-sm bg-white/5 p-10 rounded-3xl border border-white/20 shadow-2xl">
-                <p class="font-cinematic text-lg md:text-2xl text-gold-gradient-text tracking-[0.15em] uppercase mb-6">The Journey Begins</p>
+            <div
+                class="welcome-text text-center max-w-4xl mx-auto backdrop-blur-sm bg-white/5 p-10 rounded-3xl border border-white/20 shadow-2xl">
+                <p class="font-cinematic text-lg md:text-2xl text-gold-gradient-text tracking-[0.15em] uppercase mb-6">
+                    The Journey Begins</p>
                 <h2 class="font-serif text-3xl md:text-5xl lg:text-6xl leading-relaxed text-white drop-shadow-lg">
                     With a heart full of happiness,<br>
                     <span class="italic font-light text-white/80">you’re invited to the wedding of</span><br>
@@ -178,10 +233,12 @@
 
         <!-- Section 2: Top Gun Profile Cards -->
         <section class="min-h-screen w-full flex flex-col items-center justify-center px-6 py-20 relative z-30">
-            <h3 class="font-cinematic text-2xl md:text-3xl text-white tracking-[0.2em] mb-16 opacity-95 uppercase text-center w-full text-glow drop-shadow-xl">Flight Crew Profiles</h3>
-            
+            <h3
+                class="font-cinematic text-2xl md:text-3xl text-white tracking-[0.2em] mb-16 opacity-95 uppercase text-center w-full text-glow drop-shadow-xl">
+                Flight Crew Profiles</h3>
+
             <div class="flex flex-col md:flex-row gap-10 md:gap-16 w-full max-w-6xl justify-center items-center">
-                
+
                 <!-- Card 1: Jatin -->
                 <div class="glass-card w-full max-w-sm rounded-2xl p-1 profile-card">
                     <div class="scan-line"></div>
@@ -190,15 +247,18 @@
                         <div class="h-64 relative overflow-hidden group">
                             <div class="absolute inset-0 bg-gradient-to-t from-[#1a1a1a]/80 to-transparent z-10"></div>
                             <!-- Elegant portrait for the groom -->
-                            <img src="Images/groom.jpeg" alt="Jatin" class="w-full h-full object-cover object-top filter contrast-125 brightness-90 group-hover:scale-110 transition-transform duration-700">
+                            <img src="Images/groom.jpeg" alt="Jatin"
+                                class="w-full h-full object-cover object-top filter contrast-125 brightness-90 group-hover:scale-110 transition-transform duration-700">
                             <div class="absolute bottom-4 left-4 z-20">
-                                <p class="text-gold font-cinematic text-xs tracking-widest uppercase opacity-80">Callsign</p>
+                                <p class="text-gold font-cinematic text-xs tracking-widest uppercase opacity-80">
+                                    Callsign</p>
                                 <h4 class="text-white font-serif text-2xl tracking-wide">"The Groom"</h4>
                             </div>
                         </div>
                         <!-- Details Area -->
                         <div class="p-6 text-white/90 font-sans space-y-4 relative">
-                            <div class="absolute top-0 right-6 w-12 h-12 bg-white/5 rounded-full flex items-center justify-center border border-gold/30 -mt-6 backdrop-blur-md z-20">
+                            <div
+                                class="absolute top-0 right-6 w-12 h-12 bg-white/5 rounded-full flex items-center justify-center border border-gold/30 -mt-6 backdrop-blur-md z-20">
                                 <span class="font-cinematic text-gold">JW</span>
                             </div>
                             <div>
@@ -231,15 +291,18 @@
                         <div class="h-64 relative overflow-hidden group">
                             <div class="absolute inset-0 bg-gradient-to-t from-[#1a1a1a]/80 to-transparent z-10"></div>
                             <!-- Elegant portrait for the bride -->
-                            <img src="Images/brideimg1.jpeg" alt="Pahuni" class="w-full h-full object-cover object-top filter contrast-125 brightness-90 group-hover:scale-110 transition-transform duration-700">
+                            <img src="Images/brideimg1.jpeg" alt="Pahuni"
+                                class="w-full h-full object-cover object-top filter contrast-125 brightness-90 group-hover:scale-110 transition-transform duration-700">
                             <div class="absolute bottom-4 left-4 z-20">
-                                <p class="text-gold font-cinematic text-xs tracking-widest uppercase opacity-80">Callsign</p>
+                                <p class="text-gold font-cinematic text-xs tracking-widest uppercase opacity-80">
+                                    Callsign</p>
                                 <h4 class="text-white font-serif text-2xl tracking-wide">"The Bride"</h4>
                             </div>
                         </div>
                         <!-- Details Area -->
                         <div class="p-6 text-white/90 font-sans space-y-4 relative">
-                            <div class="absolute top-0 right-6 w-12 h-12 bg-white/5 rounded-full flex items-center justify-center border border-gold/30 -mt-6 backdrop-blur-md z-20">
+                            <div
+                                class="absolute top-0 right-6 w-12 h-12 bg-white/5 rounded-full flex items-center justify-center border border-gold/30 -mt-6 backdrop-blur-md z-20">
                                 <span class="font-cinematic text-gold">PT</span>
                             </div>
                             <div>
@@ -270,8 +333,11 @@
         <!-- Section 3: Cinematic Name Reinforcement -->
         <section class="min-h-[70vh] w-full flex items-center justify-center px-6 relative overflow-hidden z-20">
             <div id="cinematic-names" class="text-center relative">
-                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[120%] h-[200%] bg-white/5 blur-3xl rounded-full"></div>
-                <h2 class="font-serif text-6xl md:text-9xl text-[#1f3a68] opacity-90 tracking-tighter flex flex-col items-center drop-shadow-xl">
+                <div
+                    class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[120%] h-[200%] bg-white/5 blur-3xl rounded-full">
+                </div>
+                <h2
+                    class="font-serif text-6xl md:text-9xl text-[#1f3a68] opacity-90 tracking-tighter flex flex-col items-center drop-shadow-xl">
                     <span class="block mb-2">Jatin</span>
                     <span class="block text-4xl md:text-6xl text-[#c06c84] my-4 animate-pulse">&hearts;</span>
                     <span class="block mt-2">Pahuni</span>
@@ -281,39 +347,65 @@
 
         <!-- Section 4: Wedding Details -->
         <section class="min-h-screen w-full flex items-center justify-center px-6 py-20 relative z-30">
-            <div class="details-container max-w-3xl w-full bg-white/20 backdrop-blur-xl border border-white/40 p-10 md:p-16 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] text-center">
-                
-                <svg class="w-12 h-12 mx-auto mb-6 text-[#1f3a68] opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                
-                <h3 class="font-cinematic text-3xl md:text-4xl text-[#1f3a68] font-bold tracking-widest mb-12">Flight Details</h3>
-                
+            <div
+                class="details-container max-w-3xl w-full bg-white/20 backdrop-blur-xl border border-white/40 p-10 md:p-16 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] text-center">
+
+                <svg class="w-12 h-12 mx-auto mb-6 text-[#1f3a68] opacity-80" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                    </path>
+                </svg>
+
+                <h3 class="font-cinematic text-3xl md:text-4xl text-[#1f3a68] font-bold tracking-widest mb-12">Flight
+                    Details</h3>
+
                 <div class="space-y-12">
                     <!-- Date -->
                     <div class="detail-item">
-                        <p class="font-sans text-sm uppercase tracking-[0.3em] text-[#c06c84] font-bold mb-3">Target Date</p>
+                        <p class="font-sans text-sm uppercase tracking-[0.3em] text-[#c06c84] font-bold mb-3">Target
+                            Date</p>
                         <p class="font-serif text-3xl md:text-5xl text-[#1f3a68] font-semibold">22nd June 2026</p>
                     </div>
 
-                    <div class="w-1/4 h-px bg-gradient-to-r from-transparent via-[#1f3a68] to-transparent mx-auto opacity-30"></div>
+                    <div
+                        class="w-1/4 h-px bg-gradient-to-r from-transparent via-[#1f3a68] to-transparent mx-auto opacity-30">
+                    </div>
 
                     <!-- Venue -->
                     <div class="detail-item">
-                        <p class="font-sans text-sm uppercase tracking-[0.3em] text-[#c06c84] font-bold mb-3">Landing Zone</p>
-                        <p class="font-serif text-2xl md:text-4xl text-[#1f3a68] font-semibold mb-2">Tivoli Banquet Hall</p>
-                        <p class="font-sans text-lg text-[#1f3a68]/80 tracking-wide font-medium">Noida, Uttar Pradesh</p>
+                        <p class="font-sans text-sm uppercase tracking-[0.3em] text-[#c06c84] font-bold mb-3">Landing
+                            Zone</p>
+                        <p class="font-serif text-2xl md:text-4xl text-[#1f3a68] font-semibold mb-2">Tivoli Banquet Hall
+                        </p>
+                        <p class="font-sans text-lg text-[#1f3a68]/80 tracking-wide font-medium">Noida, Uttar Pradesh
+                        </p>
                     </div>
 
                     <!-- Coordinates -->
-                    <div class="detail-item bg-[#1f3a68]/5 inline-block px-8 py-4 rounded-full border border-[#1f3a68]/20 mt-4">
+                    <a href="https://maps.app.goo.gl/ZdzFWgGZRb8LU9Bm9" target="_blank" rel="noopener noreferrer"
+                        class="bg-white/70 backdrop-blur-md inline-block px-8 py-4 rounded-full border border-black/20 mt-4 cursor-pointer hover:bg-white hover:border-black/50 transition-all duration-300 hover:scale-105 shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.25)] group"
+                        style="opacity: 1 !important; visibility: visible !important;">
                         <div class="flex items-center justify-center gap-3">
-                            <svg class="w-5 h-5 text-[#c06c84] animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <p class="font-mono text-lg md:text-xl text-[#1f3a68] tracking-widest font-bold">28.5355° N, 77.3910° E</p>
+                            <svg class="w-5 h-5 text-black animate-pulse transition-colors" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                                </path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <p
+                                class="font-mono text-lg md:text-xl text-black tracking-widest font-extrabold drop-shadow-sm transition-all group-hover:drop-shadow-md">
+                                28.5355° N, 77.3910° E</p>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <div class="mt-16 border-t border-[#1f3a68]/20 pt-8">
-                    <p class="font-cinematic text-lg md:text-xl tracking-[0.4em] text-[#c06c84] font-bold uppercase opacity-90">Awaiting Your Arrival</p>
+                    <p
+                        class="font-cinematic text-lg md:text-xl tracking-[0.4em] text-[#c06c84] font-bold uppercase opacity-90">
+                        Awaiting Your Arrival</p>
                 </div>
             </div>
         </section>
@@ -322,10 +414,37 @@
 
     <!-- Animation Scripts -->
     <script>
+        // --- Audio Controller ---
+        const audioEl = document.getElementById('bg-audio');
+        const musicOnIcon = document.getElementById('music-on-icon');
+        const musicOffIcon = document.getElementById('music-off-icon');
+
+        let isMuted = true;
+        audioEl.muted = isMuted;
+        audioEl.play().catch(e => console.log("Autoplay blocked: ", e));
+
+        audioEl.onended = function () {
+            audioEl.currentTime = 0;
+            audioEl.play();
+        };
+
+        window.toggleMusic = function () {
+            isMuted = !isMuted;
+            audioEl.muted = isMuted;
+            if (!isMuted) {
+                audioEl.play().catch(e => console.log(e));
+                musicOnIcon.classList.remove('hidden');
+                musicOffIcon.classList.add('hidden');
+            } else {
+                musicOnIcon.classList.add('hidden');
+                musicOffIcon.classList.remove('hidden');
+            }
+        };
+
         // --- Canvas Animation: Jets & Clouds ---
         const canvas = document.getElementById('heroCanvas');
         const ctx = canvas.getContext('2d');
-        
+
         const bgCanvas = document.getElementById('particleCanvas');
         const bgCtx = bgCanvas.getContext('2d');
 
@@ -354,7 +473,7 @@
 
         // Atmospheric Clouds Array
         let clouds = [];
-        for(let i=0; i<35; i++) {
+        for (let i = 0; i < 35; i++) {
             clouds.push({
                 x: Math.random() * window.innerWidth,
                 y: Math.random() * window.innerHeight * 2,
@@ -368,14 +487,14 @@
             bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
             clouds.forEach(c => {
                 c.y += c.speedY;
-                if(c.y + c.size < 0) {
+                if (c.y + c.size < 0) {
                     c.y = bgCanvas.height + c.size;
                     c.x = Math.random() * bgCanvas.width;
                 }
 
                 bgCtx.globalAlpha = c.opacity;
                 // Draw pre-rendered cloud image
-                bgCtx.drawImage(cloudImg, c.x - c.size/2, c.y - c.size/2, c.size, c.size);
+                bgCtx.drawImage(cloudImg, c.x - c.size / 2, c.y - c.size / 2, c.size, c.size);
             });
             bgCtx.globalAlpha = 1.0;
         }
@@ -383,8 +502,8 @@
         // Hero Jet & Formation Animations
         let mainJet = null;
         let bgJets = [];
-        
-        function drawF14(ctx, x, y, scale, alpha=1, isMain=false) {
+
+        function drawF14(ctx, x, y, scale, alpha = 1, isMain = false) {
             ctx.save();
             ctx.translate(x, y);
             ctx.scale(scale, scale);
@@ -462,10 +581,10 @@
                 ctx.shadowBlur = isMain ? 25 : 10;
                 ctx.shadowColor = "#ff7b00";
                 ctx.fillStyle = "#ffdd88";
-                
+
                 // Flame flickering effect
                 let flicker = isMain ? Math.random() * 20 + 10 : 15;
-                
+
                 // Right engine flame
                 ctx.beginPath();
                 ctx.moveTo(3, 55);
@@ -473,7 +592,7 @@
                 ctx.lineTo(6, 55 + flicker);
                 ctx.closePath();
                 ctx.fill();
-                
+
                 // Left engine flame
                 ctx.beginPath();
                 ctx.moveTo(-9, 55);
@@ -492,7 +611,7 @@
             const speed = 2 + Math.random() * 3;
             const scale = 0.15 + Math.random() * 0.2;
             const opacity = 0.3 + Math.random() * 0.4;
-            
+
             // Randomly choose formation type
             const formationType = Math.floor(Math.random() * 3);
             let offsets = [];
@@ -500,22 +619,22 @@
             if (formationType === 0) {
                 // V-formation (5 jets)
                 offsets = [
-                    {x: 0, y: 0},
-                    {x: -60, y: 60}, {x: 60, y: 60},
-                    {x: -120, y: 120}, {x: 120, y: 120}
+                    { x: 0, y: 0 },
+                    { x: -60, y: 60 }, { x: 60, y: 60 },
+                    { x: -120, y: 120 }, { x: 120, y: 120 }
                 ];
             } else if (formationType === 1) {
                 // Echelon formation (4 jets diagonal)
                 offsets = [
-                    {x: 0, y: 0},
-                    {x: 60, y: 60}, {x: 120, y: 120}, {x: 180, y: 180}
+                    { x: 0, y: 0 },
+                    { x: 60, y: 60 }, { x: 120, y: 120 }, { x: 180, y: 180 }
                 ];
             } else {
                 // Diamond formation (4 jets)
                 offsets = [
-                    {x: 0, y: 0},
-                    {x: -50, y: 50}, {x: 50, y: 50},
-                    {x: 0, y: 100}
+                    { x: 0, y: 0 },
+                    { x: -50, y: 50 }, { x: 50, y: 50 },
+                    { x: 0, y: 100 }
                 ];
             }
 
@@ -539,7 +658,7 @@
                 scale: 2.5,
                 opacity: 1
             };
-            
+
             // Rapidly spawn background formations to fill the sky
             spawnFormation();
             setTimeout(spawnFormation, 800);
@@ -548,7 +667,7 @@
 
             // Continuously spawn jets every 1.5 seconds to keep the sky alive
             setInterval(() => {
-                if(Math.random() > 0.2) spawnFormation();
+                if (Math.random() > 0.2) spawnFormation();
             }, 1500);
         }
 
@@ -560,12 +679,12 @@
             for (let i = bgJets.length - 1; i >= 0; i--) {
                 let jet = bgJets[i];
                 jet.y -= jet.speed;
-                
+
                 // Subtle sway for realism
                 jet.x += Math.sin(jet.y * 0.005) * 0.3;
 
                 drawF14(ctx, jet.x, jet.y, jet.scale, jet.opacity, false);
-                
+
                 if (jet.y < -200) {
                     bgJets.splice(i, 1);
                 }
@@ -574,13 +693,13 @@
             // Handle main heroic F-14 flying UP to the top of the screen
             if (mainJet) {
                 mainJet.y -= mainJet.speed;
-                
+
                 // Progress from 0 (bottom) to 1+ (top of screen)
                 let progress = Math.max(0, 1 - (mainJet.y / canvas.height));
-                
+
                 // Scale massively so it looks like it's flying extremely close to the screen (2.5 -> ~9.0)
-                mainJet.scale = 2.5 + (progress * 6.5); 
-                
+                mainJet.scale = 2.5 + (progress * 6.5);
+
                 // Accelerate steadily to fly off the top
                 mainJet.speed += 0.5;
 
@@ -588,67 +707,102 @@
 
                 // Stop drawing it when it has flown completely off the top of the screen (needs larger offset due to massive scale)
                 if (mainJet.y < -800) {
-                    mainJet = null; 
+                    mainJet = null;
                 }
             }
 
             requestAnimationFrame(animateHero);
         }
 
+        // --- Web Audio API for Matrix Typing Sounds ---
+        let audioCtx;
+        function playTypeSound() {
+            if (!audioCtx) return;
+            // Short high-pitched telemetry 'blip' for each keystroke
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(800 + Math.random() * 200, audioCtx.currentTime);
+
+            gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.03);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.03);
+        }
+
         // --- Sequence Controller: Intro -> Main Animation ---
-        window.addEventListener('load', () => {
+        const startBtn = document.getElementById('start-mission-btn');
+
+        startBtn.addEventListener('click', () => {
+            // Audio context requires user interaction to initialize
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            // Fade out the start button
+            startBtn.style.opacity = '0';
+            startBtn.style.pointerEvents = 'none';
+            setTimeout(() => startBtn.style.display = 'none', 500);
+
             const line1 = "> This mission, if you choose to accept it...";
             const line2 = "> Ooh too late... she said Yes!!!.";
-            
+
             function typeWriter(elementId, text, speed, callback) {
                 let i = 0;
                 const el = document.getElementById(elementId);
                 function type() {
                     if (i < text.length) {
                         el.innerHTML += text.charAt(i);
+                        playTypeSound(); // Play matrix sound per keystroke
                         i++;
                         // Randomize typing speed slightly for realism
                         setTimeout(type, speed + (Math.random() * 30));
                     } else {
-                        if(callback) setTimeout(callback, 800);
+                        if (callback) setTimeout(callback, 800);
                     }
                 }
                 type();
             }
 
-            // Start Intro Sequence
+            // Start Intro Sequence immediately after click
             setTimeout(() => {
                 typeWriter('intro-line-1', line1, 40, () => {
                     setTimeout(() => {
                         typeWriter('intro-line-2', line2, 50, () => {
-                            
+
                             // Cue Transition
                             setTimeout(() => {
                                 // 1. Fade out terminal background
                                 const terminalBg = document.getElementById('terminal-bg');
                                 terminalBg.style.opacity = '0';
-                                
+
                                 // 2. Bring in Stylized Font & Jets Together!
                                 setTimeout(() => {
                                     const heroNames = document.getElementById('hero-names');
                                     heroNames.classList.remove('opacity-0', 'scale-95');
                                     heroNames.classList.add('opacity-100', 'scale-100');
-                                    
+
                                     // Start Jet Choreography right as names pop up
                                     initJets();
                                     animateHero();
 
                                     // Hide terminal bg completely
                                     setTimeout(() => { terminalBg.style.display = 'none'; }, 1000);
-                                    
+
                                 }, 1000); // Delay so it overlaps slightly with terminal fade
-                                
+
                             }, 800); // Pause after "she said yes"
 
                         });
                     }, 400); // Pause between line 1 and 2
                 });
-            }, 800);
+            }, 200); // Wait shortly after button click
         });
 
         // --- GSAP Scroll Animations ---
@@ -711,7 +865,7 @@
             duration: 1.2,
             ease: "power3.out"
         });
-        
+
         gsap.from(".detail-item", {
             scrollTrigger: {
                 trigger: ".details-container",
@@ -727,4 +881,5 @@
 
     </script>
 </body>
+
 </html>
